@@ -1,0 +1,25 @@
+nav {
+  height: 60px;
+  background-color: #394867;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+
+.navLinks li:not(:last-child) {
+  margin-right: 0.75rem;
+}
+
+.navLinks li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.navLinks li {
+  color: #fff;
+}

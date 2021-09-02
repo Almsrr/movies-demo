@@ -1,0 +1,10 @@
+.actorsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.actorsList a {
+  text-decoration: none;
+}

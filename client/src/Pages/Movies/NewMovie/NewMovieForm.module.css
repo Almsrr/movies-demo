@@ -1,0 +1,59 @@
+.formContainer {
+  grid-area: 3 / 1 / span 1 / span 1;
+}
+
+@media screen and (min-width: 768px) {
+  .formContainer {
+    grid-area: 2 / 2 / span 1 / span 1;
+  }
+}
+
+.formContainer button {
+  cursor: pointer;
+  border: none;
+  background-color: #14274e;
+  color: #fff;
+  border-radius: 4px;
+  padding: 7px 14px;
+}
+
+.movieForm {
+  background-color: #394867;
+  padding: 0.75rem;
+  border-radius: 3px;
+}
+
+.movieForm div:not(last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.movieForm label {
+  display: block;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  color: #fff;
+}
+
+.movieForm input {
+  width: 98%;
+  padding: 4px;
+}
+
+.movieForm textarea {
+  width: 98%;
+  padding: 4px;
+  resize: none;
+}
+
+.formActions {
+  text-align: right;
+}
+
+.formActions button:first-child {
+  margin-right: 15px;
+}
+
+.showFormBtn {
+  display: block;
+  margin: 1rem auto;
+}

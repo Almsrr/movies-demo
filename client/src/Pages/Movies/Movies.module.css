@@ -1,0 +1,14 @@
+.moviesGrid {
+  display: grid;
+  grid-template-rows: 200px 800px 650px;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 4% 0;
+}
+
+@media screen and (min-width: 768px) {
+  .moviesGrid {
+    grid-template-columns: 1fr 270px;
+    grid-template-rows: 200px 800px;
+  }
+}

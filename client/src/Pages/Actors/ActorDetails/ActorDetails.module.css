@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  padding: 3rem 0;
+  height: 600px;
+}
+.content {
+  padding: 0 2rem;
+}
+.content p {
+  margin-bottom: 1rem;
+}
+.content h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.content span {
+  font-weight: bold;
+}
+
+.actorImg {
+  width: auto;
+  height: 100%;
+}
