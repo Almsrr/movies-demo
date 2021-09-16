@@ -95,9 +95,12 @@ const NewMovieForm = (props) => {
         </div>
         <div>
           <label htmlFor="actors">Actors</label>
-          <textarea name="actors" rows="5" ref={newMovieActors}>
-            Alam Sierra, Marcelo Erizo
-          </textarea>
+          <textarea
+            name="actors"
+            rows="5"
+            ref={newMovieActors}
+            defaultValue="Alam Sierra, Marcelo Erizo"
+          ></textarea>
         </div>
         <div className={styles.formActions}>
           <button onClick={showFormHandler}>Cancel</button>

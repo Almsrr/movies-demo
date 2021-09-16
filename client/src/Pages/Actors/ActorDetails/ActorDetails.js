@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./ActorDetails.module.css";
 
 const ActorDetails = ({ match }) => {
-  useEffect(() => {
-    fetchActor();
-  }, []);
-
   const [actor, setActor] = useState({});
 
   // GET actor with id
-  const fetchActor = async () => {
+  const fetchActor = useCallback(async () => {
     const actor = await fetch(`/api/actors/${match.params.id}?api-key=123`);
     const jsonResponse = await actor.json();
     setActor(jsonResponse);
-  };
+  }, [match.params.id]);
 
   // Friendly format for date
   const formatDate = (stringDate) => {
     const date = new Date(stringDate);
     return date.toDateString();
   };
+
+  useEffect(() => {
+    fetchActor();
+  }, [fetchActor]);
 
   return (
     <div className={styles.container}>

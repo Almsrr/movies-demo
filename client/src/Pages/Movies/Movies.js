@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import MoviesList from "./MoviesList/MoviesList";
 import NewMovieForm from "./NewMovie/NewMovieForm";
@@ -16,27 +16,28 @@ const moviesGenres = [
 ];
 
 const Movies = () => {
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   // GET Movies
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     try {
       const movies = await fetch("/api/movies?api-key=123");
       if (movies.ok) {
         const jsonMovies = await movies.json();
         setMovies(jsonMovies);
-        return setFilteredMovies(jsonMovies);
+        setFilteredMovies(jsonMovies);
+        return;
       }
       throw new Error("Request failed");
     } catch (e) {
       console.log(e.message);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
 
   // Validate if movie exists
   const exists = (movieToValidate) => {
@@ -92,13 +93,12 @@ const Movies = () => {
 
   // Filter by genre
   const filterHandler = (userFilter) => {
-    console.log(userFilter);
     if (moviesGenres.includes(userFilter)) {
       setFilteredMovies(() =>
         movies.filter((movie) => movie.genre.toLowerCase() === userFilter)
       );
     } else if (userFilter === "all") {
-      setFilteredMovies(movies);
+      setFilteredMovies([...movies]);
     }
   };
 
