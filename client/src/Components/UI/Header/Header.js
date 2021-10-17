@@ -22,13 +22,21 @@ function Header(props) {
           </button>
           <div className="collapse navbar-collapse" id="nav-top">
             <ul className="navbar-nav mb-2 mb-lg-0 ms-auto">
-              <li class="nav-item">
-                <Link class="nav-link" activeClassName="active" to="/series">
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/series"
+                >
                   Series
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" activeClassName="active" to="/actors">
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/actors"
+                >
                   Actors
                 </Link>
               </li>

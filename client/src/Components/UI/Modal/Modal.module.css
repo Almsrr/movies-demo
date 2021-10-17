@@ -1,0 +1,24 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.modalDialog {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  top: 10%;
+}
+
+@media screen and (min-width: 768px) {
+  .modalDialog {
+    width: 500px;
+    left: calc(50% - 500px / 2);
+  }
+}
