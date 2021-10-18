@@ -1,24 +1,25 @@
-import React from "react";
-import styles from "./MoviesFilter.module.css";
+import React, { Fragment } from "react";
 
 const MoviesFilter = (props) => {
   const onSelectedFilter = (event) => {
     const selectedFilter = event.target.value;
     props.onFilter(selectedFilter);
   };
-  const searchFilterHandler = (event) => {
+
+  const searchHandler = (event) => {
     const searchTerm = event.target.value.toLowerCase();
     props.onSearch(searchTerm);
   };
-  return (
-    <div className={styles.moviesFilters}>
-      <h3>Filter</h3>
 
-      {/* Gender select  */}
-      <div className={styles.genreFilter}>
-        <label htmlFor="genres">By genre</label>
-        <select name="genres" onInput={onSelectedFilter}>
-          <option value="all">All</option>
+  return (
+    <Fragment>
+      <div className="col-12 col-sm-6 col-md-2 me-1">
+        <select
+          name="genres"
+          onChange={onSelectedFilter}
+          className="form-select"
+        >
+          <option value="all">All genres</option>
           <option value="action">Action</option>
           <option value="adventure">Adventure</option>
           <option value="comedy">Comedy</option>
@@ -28,20 +29,16 @@ const MoviesFilter = (props) => {
           <option value="romance">Romance</option>
         </select>
       </div>
-
-      {/* Search INPUT  */}
-      <div className={styles.searchFilter}>
-        <label htmlFor="searchInput">Search movies or actors</label>
+      <div className="col-12 col-sm-6 col-md-3 me-1">
         <input
-          name="searchInput"
-          id="searchInput"
+          className="form-control"
           type="search"
           placeholder="Search"
-          aria-label="Search through site content"
-          onChange={searchFilterHandler}
+          aria-label="Search"
+          onChange={searchHandler}
         />
       </div>
-    </div>
+    </Fragment>
   );
 };
 

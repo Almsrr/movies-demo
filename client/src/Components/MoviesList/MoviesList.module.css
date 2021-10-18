@@ -14,8 +14,8 @@
   align-items: center;
   transition: all 500ms ease-out;
   cursor: pointer;
-  color: #c0c0c0;
-  border: 2px solid #c0c0c0;
+  color: #ced4da;
+  border: 1px solid #ced4da;
   border-radius: 0.25rem;
   text-decoration: none;
 }

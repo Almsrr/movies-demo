@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useReducer } from "react";
 
 import MoviesList from "../../Components/MoviesList/MoviesList";
-import NewMovieForm from "../../Components/NewMovieForm/NewMovieForm";
 import MoviesFilter from "../../Components/MoviesFilter/MoviesFilter";
 import MovieDetailsModal from "../../Components/MovieDetailsModal/MovieDetailsModal";
 
@@ -56,18 +55,6 @@ const Movies = () => {
   useEffect(() => {
     fetchMovies();
   }, [fetchMovies]);
-
-  // Validate if movie exists
-  const exists = (movieToValidate) => {
-    for (let i = 0; i < movies.length; i++) {
-      if (
-        movies[i].title.toLowerCase() === movieToValidate.title.toLowerCase()
-      ) {
-        return true;
-      }
-    }
-    return false;
-  };
 
   // DELELE Movie
   const deleteMovieHandler = async (id) => {
@@ -134,6 +121,9 @@ const Movies = () => {
       )}
 
       <div className="container-fluid">
+        <div className="row justify-content-end g-2">
+          <MoviesFilter onSearch={searchHandler} onFilter={filterHandler} />
+        </div>
         <div className="row">
           <div className="col-12">
             <MoviesList

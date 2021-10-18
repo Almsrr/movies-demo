@@ -4,8 +4,8 @@ function Header(props) {
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/">
+        <div className="container-fluid py-2">
+          <NavLink className="navbar-brand ms-2" to="/">
             <i className="fas fa-video me-2"></i>
             Movies
           </NavLink>
