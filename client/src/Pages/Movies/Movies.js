@@ -69,28 +69,6 @@ const Movies = () => {
     return false;
   };
 
-  // POST Movie
-  const newMovieHandler = async (movie) => {
-    if (exists(movie)) {
-      return window.alert("Movie already exists");
-    }
-    try {
-      const response = await fetch("/api/movies?api-key=123", {
-        method: "POST",
-        body: JSON.stringify(movie),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      if (response.ok) {
-        return fetchMovies();
-      }
-      throw new Error("Request failed");
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
   // DELELE Movie
   const deleteMovieHandler = async (id) => {
     try {

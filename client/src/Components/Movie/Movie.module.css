@@ -4,6 +4,7 @@
   border: none !important;
   overflow: hidden;
   cursor: pointer;
+  height: 100%;
 }
 
 .movie img {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Movie from "../Movie/Movie";
 import styles from "./MoviesList.module.css";
 
@@ -13,14 +14,15 @@ const MoviesList = (props) => {
   return (
     <ul className={listClasses}>
       {movies.map((movie) => (
-        <li className="col">
-          <Movie
-            key={movie.id}
-            movie={movie}
-            onShowDetails={onShowMovieDetails}
-          />
+        <li className="col" key={movie.id}>
+          <Movie movie={movie} onShowDetails={onShowMovieDetails} />
         </li>
       ))}
+      <li className="col" key="plus">
+        <Link className={styles.addBtn} to="new-movie">
+          <i className="fas fa-plus"></i>
+        </Link>
+      </li>
     </ul>
   );
 };
