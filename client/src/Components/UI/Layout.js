@@ -6,7 +6,7 @@ function Layout(props) {
   return (
     <Fragment>
       <Header />
-      <main>{props.children}</main>
+      <main className="py-3">{props.children}</main>
       <Footer />
     </Fragment>
   );

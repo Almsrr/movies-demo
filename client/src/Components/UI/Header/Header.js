@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Header(props) {
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            <i class="fas fa-video me-2"></i>
+          <NavLink className="navbar-brand" to="/">
+            <i className="fas fa-video me-2"></i>
             Movies
-          </Link>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -21,24 +21,15 @@ function Header(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="nav-top">
-            <ul className="navbar-nav mb-2 mb-lg-0 ms-auto">
+            <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  activeClassName="active"
-                  to="/series"
-                >
-                  Series
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
+                <NavLink
                   className="nav-link"
                   activeClassName="active"
                   to="/actors"
                 >
                   Actors
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
