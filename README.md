@@ -31,9 +31,9 @@
 
 ![pic3](./pics/pic3.png)
 
-![pic4](./pics/pic4.png)
+![pic9](./pics/pic9.png)
 
-![pic5](./pics/pic5.png)
+![pic10](./pics/pic10.png)
 
 ![pic6](./pics/pic6.png)
 
