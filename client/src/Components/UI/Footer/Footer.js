@@ -1,11 +1,14 @@
 import React from "react";
-import styles from "./Footer.module.css";
 
 function Footer() {
   return (
-    <footer>
-      <div className="container">
-        <p className={styles.author}>Created by Alam</p>
+    <footer className="bg-light">
+      <div className="container-fluid">
+        <div className="row py-3">
+          <div className="col-12">
+            <small className="float-end">Made by Alam</small>
+          </div>
+        </div>
       </div>
     </footer>
   );
