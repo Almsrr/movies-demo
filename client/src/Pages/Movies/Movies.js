@@ -133,8 +133,6 @@ const Movies = () => {
           </div>
         </div>
       </div>
-      {/* <MoviesFilter onFilter={filterHandler} onSearch={searchHandler} />
-      <NewMovieForm onNewMovie={newMovieHandler} /> */}
     </section>
   );
 };

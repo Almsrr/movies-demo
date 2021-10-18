@@ -1,11 +1,12 @@
 .card {
   padding: 1rem 0;
-  border: 1px solid #ddd;
+  border: 1px solid #ced4da;
   border-radius: 3px;
   transition: all 0.1s linear;
 }
 
 .card:hover {
-  box-shadow: -5px 7px 7px rgba(221, 221, 221, 0.7);
-  border-color: #c0c0c0;
+  box-shadow: 0 7px 7px rgba(221, 221, 221, 0.7);
+  border-color: #ced4da;
+  margin-top: -5px;
 }

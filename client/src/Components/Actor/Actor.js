@@ -3,12 +3,12 @@ import Card from "../../Components/UI/Card/Card";
 import styles from "./Actor.module.css";
 
 const Actor = (props) => {
+  const { fullname } = props.actor;
+
   return (
-    <li>
-      <Card className={styles.actor}>
-        <h3>{props.fullName}</h3>
-      </Card>
-    </li>
+    <Card className={styles.actor}>
+      <h3>{fullname}</h3>
+    </Card>
   );
 };
 

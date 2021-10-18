@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-
-import ActorsList from "./ActorsList/ActorsList";
-import styles from "./Actors.module.css";
+import ActorsList from "../../Components/ActorsList/ActorsList";
 
 const Actors = () => {
   const [actors, setActors] = useState([]);
@@ -18,8 +16,13 @@ const Actors = () => {
 
   return (
     <section>
-      <h1 className={styles.title}>Actors</h1>
-      <ActorsList actors={actors} />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-12">
+            <ActorsList actors={actors} />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
