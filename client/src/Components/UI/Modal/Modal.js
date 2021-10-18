@@ -4,7 +4,7 @@ import styles from "./Modal.module.css";
 
 function Modal(props) {
   const hasOnClose = props.onClose ? props.onClose : null;
-  const modalClasses = `modal-content ${
+  const modalClasses = `modal-content overflow-hidden${
     props.className ? props.className : ""
   }`;
   const modal = (
