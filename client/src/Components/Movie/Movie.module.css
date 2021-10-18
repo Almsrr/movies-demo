@@ -9,6 +9,7 @@
 
 .movie img {
   transition: all 200ms ease-out;
+  height: 100%;
 }
 
 .movieOverlay {
@@ -27,68 +28,3 @@
 .movie p {
   margin-bottom: 0.5rem;
 }
-
-/* .movie {
-  border-radius: 3px;
-  overflow: hidden;
-  position: relative;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 230px;
-  width: 160px;
-  display: inline-block;
-}
-
-@media screen and (min-width: 645px) {
-  .movie {
-    width: 200px;
-    height: 280px;
-  }
-}
-
-.caption {
-  padding: 1rem;
-  visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 10;
-}
-
-.movie:hover .caption {
-  visibility: visible;
-}
-
-.caption h2 {
-  margin-bottom: 1rem;
-}
-
-.caption span {
-  display: block;
-  font-weight: lighter;
-}
-
-.actions {
-  text-align: right;
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-}
-
-.actions button {
-  color: #fff;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 1.25rem;
-} */
-
-/* .cardOverlay{
-  tr
-} */

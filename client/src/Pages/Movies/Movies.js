@@ -121,7 +121,7 @@ const Movies = () => {
       )}
 
       <div className="container-fluid">
-        <div className="row justify-content-end g-2">
+        <div className="row justify-content-end g-2 mb-2">
           <MoviesFilter onSearch={searchHandler} onFilter={filterHandler} />
         </div>
         <div className="row">

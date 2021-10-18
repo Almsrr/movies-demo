@@ -5,7 +5,7 @@ function Header(props) {
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid py-2">
-          <NavLink className="navbar-brand ms-2" to="/">
+          <NavLink className="navbar-brand ms-1" to="/">
             <i className="fas fa-video me-2"></i>
             Movies
           </NavLink>

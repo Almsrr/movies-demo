@@ -13,7 +13,7 @@ const MoviesFilter = (props) => {
 
   return (
     <Fragment>
-      <div className="col-12 col-sm-6 col-md-2 me-1">
+      <div className="col-12 col-sm-6 col-md-2">
         <select
           name="genres"
           onChange={onSelectedFilter}
@@ -29,7 +29,7 @@ const MoviesFilter = (props) => {
           <option value="romance">Romance</option>
         </select>
       </div>
-      <div className="col-12 col-sm-6 col-md-3 me-1">
+      <div className="col-12 col-sm-6 col-md-3">
         <input
           className="form-control"
           type="search"
