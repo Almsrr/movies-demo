@@ -1,55 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Movie.module.css";
-import Modal from "../Modal/DetailsModal";
+
+// Friendly format date
+export const formatDate = (stringDate) => {
+  const date = new Date(stringDate);
+  return date.toLocaleDateString();
+};
 
 const Movie = (props) => {
-  const [showDetails, setShowDetails] = useState(false);
+  const { movie, onShowDetails } = props;
 
-  // Current movie
-  const movie = props.currentMovie;
+  // Classes
+  const cardClases = `card ${styles.movie}`;
+  const cardOverlayClasses = `card-img-overlay ${styles.movieOverlay}`;
 
-  const deleteHandler = () => {
-    const result = window.confirm(`${movie.title} will be deleted`);
-    if (result) {
-      props.onDelete(movie.id);
-    }
+  const showDetailsHandler = () => {
+    onShowDetails(movie);
   };
-  const detailsHandler = () => {
-    setShowDetails((hidden) => !hidden);
-  };
-
-  // Friendly format date
-  const formatDate = (stringDate) => {
-    const date = new Date(stringDate);
-    return date.toLocaleDateString();
-  };
-
-  // Bg img to movie
-  const movieImg = { backgroundImage: `url(${movie.imageurl})` };
 
   return (
-    <li className={styles.movie} style={movieImg}>
-      <div className={styles.caption}>
-        <h2>{movie.title}</h2>
+    <div className={cardClases} onClick={showDetailsHandler}>
+      <img src={movie.imageurl} alt="movie" />
+      <div className={cardOverlayClasses}>
+        <h3 className="mb-3">{movie.title}</h3>
         <p>
-          <span>Genre:</span> {movie.genre}
+          Genre: <b>{movie.genre}</b>
         </p>
         <p>
-          <span>Initial Release:</span> {formatDate(movie.releasedate)}
+          Initial Release: <b>{formatDate(movie.releasedate)}</b>
         </p>
-        <div className={styles.actions}>
-          <button onClick={detailsHandler}>
-            <i className="fas fa-info-circle"></i>
-          </button>
-          <button onClick={deleteHandler}>
-            <i className="far fa-trash-alt"></i>
-          </button>
-        </div>
       </div>
-
-      {/* Details Modal  */}
-      {showDetails && <Modal movie={movie} onCloseDetails={detailsHandler} />}
-    </li>
+    </div>
   );
 };
 

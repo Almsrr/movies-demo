@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useReducer } from "react";
 
-import MoviesList from "./MoviesList/MoviesList";
-import NewMovieForm from "./NewMovie/NewMovieForm";
-import styles from "./Movies.module.css";
-import MoviesFilter from "./MoviesFilter/MoviesFilter";
+import MoviesList from "../../Components/MoviesList/MoviesList";
+import NewMovieForm from "../../Components/NewMovieForm/NewMovieForm";
+import MoviesFilter from "../../Components/MoviesFilter/MoviesFilter";
+import MovieDetailsModal from "../../Components/MovieDetailsModal/MovieDetailsModal";
 
 const moviesGenres = [
   "action",
@@ -15,9 +15,27 @@ const moviesGenres = [
   "romance",
 ];
 
+const detailsReducer = (state, action) => {
+  switch (action.type) {
+    case "SHOW": {
+      return { show: true, movie: action.movie };
+    }
+    case "HIDE": {
+      return { show: false, movie: null };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [movieDetails, dispatchDetails] = useReducer(detailsReducer, {
+    show: false,
+    movie: null,
+  });
 
   // GET Movies
   const fetchMovies = useCallback(async () => {
@@ -83,7 +101,9 @@ const Movies = () => {
         },
       });
       if (response.ok) {
-        return fetchMovies();
+        dispatchDetails({ type: "HIDE" });
+        fetchMovies();
+        return;
       }
       throw new Error("Request failed");
     } catch (e) {
@@ -117,16 +137,36 @@ const Movies = () => {
     }
   };
 
+  const showMovieDetailsHandler = (currentMovie) => {
+    dispatchDetails({ type: "SHOW", movie: currentMovie });
+  };
+  const hideMovieDetailsHandler = () => {
+    dispatchDetails({ type: "HIDE" });
+  };
+
   return (
     <section>
-      <div className={styles.moviesGrid}>
-        <MoviesList
-          movies={filteredMovies}
+      {/* Details modal  */}
+      {movieDetails.show && (
+        <MovieDetailsModal
+          movie={movieDetails.movie}
           onDeleteMovie={deleteMovieHandler}
+          onCloseModal={hideMovieDetailsHandler}
         />
-        <MoviesFilter onFilter={filterHandler} onSearch={searchHandler} />
-        <NewMovieForm onNewMovie={newMovieHandler} />
+      )}
+
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-12">
+            <MoviesList
+              movies={filteredMovies}
+              onShowMovieDetails={showMovieDetailsHandler}
+            />
+          </div>
+        </div>
       </div>
+      {/* <MoviesFilter onFilter={filterHandler} onSearch={searchHandler} />
+      <NewMovieForm onNewMovie={newMovieHandler} /> */}
     </section>
   );
 };

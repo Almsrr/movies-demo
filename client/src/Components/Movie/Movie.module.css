@@ -1,4 +1,33 @@
 .movie {
+  color: #fff;
+  background-color: #000 !important;
+  border: none !important;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.movie img {
+  transition: all 200ms ease-out;
+}
+
+.movieOverlay {
+  transition: all 200ms ease-out;
+  visibility: hidden;
+}
+
+.movie:hover .movieOverlay {
+  visibility: visible;
+}
+
+.movie:hover img {
+  opacity: 0.4;
+}
+
+.movie p {
+  margin-bottom: 0.5rem;
+}
+
+/* .movie {
   border-radius: 3px;
   overflow: hidden;
   position: relative;
@@ -57,4 +86,8 @@
   cursor: pointer;
   margin-left: 10px;
   font-size: 1.25rem;
-}
+} */
+
+/* .cardOverlay{
+  tr
+} */

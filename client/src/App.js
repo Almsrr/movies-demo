@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import "./app.css";
 
 import Layout from "./Components/UI/Layout";
 import Movies from "./Pages/Movies/Movies";
