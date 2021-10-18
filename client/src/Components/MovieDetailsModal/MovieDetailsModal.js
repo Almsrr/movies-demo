@@ -3,8 +3,15 @@ import styles from "./MovieDetailsModal.module.css";
 import { formatDate } from "../Movie/Movie";
 
 function MovieDetailsModal(props) {
-  const { onCloseModal, movie } = props;
+  const { onCloseModal, movie, onDeleteMovie } = props;
   const closeBtnClasses = `btn btn-close ${styles.closeBtn}`;
+
+  const deleteMovieHandler = () => {
+    const confirm = window.confirm(`${movie.title} will be deleted`);
+    if (confirm) {
+      onDeleteMovie(movie.id);
+    }
+  };
   return (
     <Modal onClose={onCloseModal}>
       <button
@@ -39,6 +46,14 @@ function MovieDetailsModal(props) {
               <span>Actors</span>
               {movie.actors}
             </p>
+            <div className="clearfix">
+              <button
+                className="btn btn-warning float-end"
+                onClick={deleteMovieHandler}
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
