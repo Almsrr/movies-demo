@@ -13,13 +13,14 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 const moviesGenres = [
-  "action",
-  "adventure",
-  "comedy",
-  "fantasy",
-  "horror",
-  "infantile",
-  "romance",
+  { value: "all", name: "All genres" },
+  { value: "action", name: "Action" },
+  { value: "adventure", name: "Adventure" },
+  { value: "comedy", name: "Comedy" },
+  { value: "fantasy", name: "Fantasy" },
+  { value: "horror", name: "Horror" },
+  { value: "infantile", name: "Infantile" },
+  { value: "romance", name: "Romance" },
 ];
 
 const movieDetailReducer = (state, action) => {
@@ -91,14 +92,16 @@ const Movies = () => {
 
   // Filter by genre
   const filterHandler = useCallback((userFilter) => {
-    if (moviesGenres.includes(userFilter)) {
+    const genres = moviesGenres.map((genre) => genre.value);
+
+    if (genres.includes(userFilter) && userFilter === "all") {
+      setMovies(availableMovies);
+    } else if (genres.includes(userFilter)) {
       setMovies(() =>
         availableMovies.filter(
           (movie) => movie.genre.toLowerCase() === userFilter
         )
       );
-    } else if (userFilter === "all") {
-      setMovies(availableMovies);
     }
   }, []);
 
@@ -127,7 +130,11 @@ const Movies = () => {
     <Fragment>
       <section className="row">
         <aside className="col-md-3">
-          <MoviesFilter onSearch={searchHandler} onFilter={filterHandler} />
+          <MoviesFilter
+            onSearch={searchHandler}
+            onFilter={filterHandler}
+            genres={moviesGenres}
+          />
         </aside>
         <div className="col-md-9">
           <MoviesList

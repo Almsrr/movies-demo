@@ -22,14 +22,11 @@ const MoviesFilter = (props) => {
           onChange={selectedFilterHandler}
           className="form-select"
         >
-          <option value="all">All genres</option>
-          <option value="action">Action</option>
-          <option value="adventure">Adventure</option>
-          <option value="comedy">Comedy</option>
-          <option value="fantasy">Fantasy</option>
-          <option value="horror">Horror</option>
-          <option value="infantile">Infantile</option>
-          <option value="romance">Romance</option>
+          {props.genres.map((genre, i) => (
+            <option key={i} value={genre.value}>
+              {genre.name}
+            </option>
+          ))}
         </select>
       </div>
       <div className="mb-3">
