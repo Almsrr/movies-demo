@@ -1,0 +1,14 @@
+.detail__title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.detail__text span {
+  font-weight: bold;
+  display: block;
+}
+
+.detail__text {
+  margin-bottom: 1rem;
+}

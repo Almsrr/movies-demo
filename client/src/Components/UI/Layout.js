@@ -1,13 +1,13 @@
 import { Fragment } from "react";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import Navigation from "./Navigation";
 
 function Layout(props) {
   return (
     <Fragment>
-      <Header />
-      <main className="py-3">{props.children}</main>
-      <Footer />
+      <Navigation />
+      <main>
+        <div className="container">{props.children}</div>
+      </main>
     </Fragment>
   );
 }

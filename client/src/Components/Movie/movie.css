@@ -1,0 +1,23 @@
+.movie {
+  transition: all 100ms linear;
+}
+
+/* .movie:hover {
+  margin-top: -7px;
+} */
+
+.movie__img {
+  cursor: pointer;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  box-shadow: 0 5px 9px #c0c0c0;
+  width: 100%;
+  height: auto;
+}
+
+.movie__title {
+  margin-bottom: 0;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+}

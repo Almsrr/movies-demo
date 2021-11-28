@@ -1,36 +1,23 @@
 import React from "react";
-import styles from "./Movie.module.css";
 
-// Friendly format date
-export const formatDate = (stringDate) => {
-  const date = new Date(stringDate);
-  return date.toLocaleDateString();
-};
+import "./movie.css";
 
 const Movie = (props) => {
-  const { movie, onShowDetails } = props;
+  const { movie, onShowDetail } = props;
 
-  // Classes
-  const cardClases = `card ${styles.movie}`;
-  const cardOverlayClasses = `card-img-overlay ${styles.movieOverlay}`;
-
-  const showDetailsHandler = () => {
-    onShowDetails(movie);
+  const showMovieDetailHandler = () => {
+    onShowDetail(movie);
   };
 
   return (
-    <div className={cardClases} onClick={showDetailsHandler}>
-      <img src={movie.imageurl} alt="movie" />
-      <div className={cardOverlayClasses}>
-        <h3 className="mb-3">{movie.title}</h3>
-        <p>
-          Genre: <b>{movie.genre}</b>
-        </p>
-        <p>
-          Initial Release: <b>{formatDate(movie.releasedate)}</b>
-        </p>
-      </div>
-    </div>
+    <article className="movie" onClick={showMovieDetailHandler}>
+      <img
+        className="movie__img"
+        src={movie.imgUrl}
+        alt={`${movie.title}-cover`}
+      />
+      <h3 className="movie__title">{movie.title}</h3>
+    </article>
   );
 };
 

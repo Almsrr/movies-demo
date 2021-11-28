@@ -1,24 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import Movie from "../Movie/Movie";
-import styles from "./MoviesList.module.css";
+import "./movieList.css";
 
 const MoviesList = (props) => {
-  const { movies, onShowMovieDetails } = props;
+  const { movies, onShowMovieDetail } = props;
 
-  const listClasses = `row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-2 ${styles.list}`;
   return (
-    <ul className={listClasses}>
+    <ul className="row movie-list">
       {movies.map((movie) => (
-        <li className="col" key={movie.id}>
-          <Movie movie={movie} onShowDetails={onShowMovieDetails} />
+        <li className="col-sm-6 col-md-3 col-lg-3" key={movie.id}>
+          <Movie movie={movie} onShowDetail={onShowMovieDetail} />
         </li>
       ))}
-      <li className="col" key="plus">
-        <Link className={styles.addBtn} to="new-movie">
-          <i className="fas fa-plus"></i>
-        </Link>
-      </li>
     </ul>
   );
 };

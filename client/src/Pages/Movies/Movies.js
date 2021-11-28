@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback, useReducer } from "react";
+import React, { useState, useEffect, useReducer, Fragment } from "react";
 
 import MoviesList from "../../Components/MoviesList/MoviesList";
 import MoviesFilter from "../../Components/MoviesFilter/MoviesFilter";
-import MovieDetailsModal from "../../Components/MovieDetailsModal/MovieDetailsModal";
+import MovieDetails from "../../Components/MovieDetail/MovieDetail";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 const moviesGenres = [
   "action",
@@ -14,7 +16,7 @@ const moviesGenres = [
   "romance",
 ];
 
-const detailsReducer = (state, action) => {
+const movieDetailReducer = (state, action) => {
   switch (action.type) {
     case "SHOW": {
       return { show: true, movie: action.movie };
@@ -31,30 +33,28 @@ const detailsReducer = (state, action) => {
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [movieDetails, dispatchDetails] = useReducer(detailsReducer, {
+  const [movieDetail, dispatchMovieDetail] = useReducer(movieDetailReducer, {
     show: false,
     movie: null,
   });
 
-  // GET Movies
-  const fetchMovies = useCallback(async () => {
-    try {
-      const movies = await fetch("/api/movies?api-key=123");
-      if (movies.ok) {
-        const jsonMovies = await movies.json();
-        setMovies(jsonMovies);
-        setFilteredMovies(jsonMovies);
-        return;
-      }
-      throw new Error("Request failed");
-    } catch (e) {
-      console.log(e.message);
-    }
-  }, []);
-
   useEffect(() => {
+    // GET Movies
+    const availableMovies = [];
+    const fetchMovies = async () => {
+      try {
+        const data = await getDocs(collection(db, "movies"));
+        data.forEach((doc) => {
+          availableMovies.push({ id: doc.id, ...doc.data() });
+        });
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
     fetchMovies();
-  }, [fetchMovies]);
+    setMovies(availableMovies);
+    setFilteredMovies(availableMovies);
+  }, []);
 
   // DELELE Movie
   const deleteMovieHandler = async (id) => {
@@ -66,8 +66,7 @@ const Movies = () => {
         },
       });
       if (response.ok) {
-        dispatchDetails({ type: "HIDE" });
-        fetchMovies();
+        dispatchMovieDetail({ type: "HIDE" });
         return;
       }
       throw new Error("Request failed");
@@ -103,37 +102,33 @@ const Movies = () => {
   };
 
   const showMovieDetailsHandler = (currentMovie) => {
-    dispatchDetails({ type: "SHOW", movie: currentMovie });
+    dispatchMovieDetail({ type: "SHOW", movie: currentMovie });
   };
   const hideMovieDetailsHandler = () => {
-    dispatchDetails({ type: "HIDE" });
+    dispatchMovieDetail({ type: "HIDE" });
   };
 
   return (
-    <section>
-      {/* Details modal  */}
-      {movieDetails.show && (
-        <MovieDetailsModal
-          movie={movieDetails.movie}
-          onDeleteMovie={deleteMovieHandler}
-          onCloseModal={hideMovieDetailsHandler}
-        />
-      )}
-
-      <div className="container-fluid">
-        <div className="row justify-content-end g-2 mb-2">
+    <Fragment>
+      <section className="row">
+        <aside className="col-md-3">
           <MoviesFilter onSearch={searchHandler} onFilter={filterHandler} />
+        </aside>
+        <div className="col-md-9">
+          <MoviesList
+            movies={filteredMovies}
+            onShowMovieDetail={showMovieDetailsHandler}
+          />
         </div>
-        <div className="row">
-          <div className="col-12">
-            <MoviesList
-              movies={filteredMovies}
-              onShowMovieDetails={showMovieDetailsHandler}
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+        {/* Details modal  */}
+        {movieDetail.show && (
+          <MovieDetails
+            movie={movieDetail.movie}
+            onCloseModal={hideMovieDetailsHandler}
+          />
+        )}
+      </section>
+    </Fragment>
   );
 };
 

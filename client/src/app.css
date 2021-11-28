@@ -1,7 +1,10 @@
 main {
-  min-height: 600px;
+  padding: 30px 0 50px;
+  min-height: 500px;
 }
 
-.no-decoration {
-  text-decoration: none !important;
+.navbar-brand {
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  font-weight: 800;
 }

@@ -1,5 +1,8 @@
 import React, { Fragment } from "react";
 
+import { Link } from "react-router-dom";
+import "./moviesFilter.css";
+
 const MoviesFilter = (props) => {
   const onSelectedFilter = (event) => {
     const selectedFilter = event.target.value;
@@ -12,8 +15,8 @@ const MoviesFilter = (props) => {
   };
 
   return (
-    <Fragment>
-      <div className="col-12 col-sm-6 col-md-2">
+    <div className="filter">
+      <div className="mb-3">
         <select
           name="genres"
           onChange={onSelectedFilter}
@@ -29,7 +32,7 @@ const MoviesFilter = (props) => {
           <option value="romance">Romance</option>
         </select>
       </div>
-      <div className="col-12 col-sm-6 col-md-3">
+      <div className="mb-3">
         <input
           className="form-control"
           type="search"
@@ -38,7 +41,13 @@ const MoviesFilter = (props) => {
           onChange={searchHandler}
         />
       </div>
-    </Fragment>
+      <p className="text small text-center">
+        Can&apos;t find the movie you're looking for?{" "}
+        <Link className="fw-bold" to="/new-movie">
+          Add it
+        </Link>
+      </p>
+    </div>
   );
 };
 
