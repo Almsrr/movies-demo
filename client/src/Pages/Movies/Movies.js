@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useReducer, Fragment } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  Fragment,
+  useCallback,
+} from "react";
 
 import MoviesList from "../../Components/MoviesList/MoviesList";
 import MoviesFilter from "../../Components/MoviesFilter/MoviesFilter";
-import MovieDetails from "../../Components/MovieDetail/MovieDetail";
+import MovieDetail from "../../Components/MovieDetail/MovieDetail";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
@@ -30,81 +36,90 @@ const movieDetailReducer = (state, action) => {
   }
 };
 
+const availableMovies = [];
+
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [isLoadingMovies, setIsLoadingMovies] = useState(true);
   const [movieDetail, dispatchMovieDetail] = useReducer(movieDetailReducer, {
     show: false,
     movie: null,
   });
 
   useEffect(() => {
-    // GET Movies
-    const availableMovies = [];
+    // Load movies
     const fetchMovies = async () => {
       try {
-        const data = await getDocs(collection(db, "movies"));
-        data.forEach((doc) => {
-          availableMovies.push({ id: doc.id, ...doc.data() });
+        const docs = await getDocs(collection(db, "movies"));
+        docs.forEach((doc) => {
+          const movieData = doc.data();
+          const movie = {
+            id: doc.id,
+            ...movieData,
+          };
+          availableMovies.push(movie);
         });
+        return availableMovies;
       } catch (e) {
+        alert("Something went wrong");
         console.log(e.message);
       }
     };
-    fetchMovies();
-    setMovies(availableMovies);
-    setFilteredMovies(availableMovies);
+    fetchMovies().then((loadedMovies) => {
+      setMovies(loadedMovies);
+      setIsLoadingMovies(false);
+    });
   }, []);
-
   // DELELE Movie
-  const deleteMovieHandler = async (id) => {
-    try {
-      const response = await fetch(`/api/movies/${id}?api-key=123`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      if (response.ok) {
-        dispatchMovieDetail({ type: "HIDE" });
-        return;
-      }
-      throw new Error("Request failed");
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+  // const deleteMovieHandler = async (id) => {
+  //   try {
+  //     const response = await fetch(`/api/movies/${id}?api-key=123`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-type": "application/json; charset=UTF-8",
+  //       },
+  //     });
+  //     if (response.ok) {
+  //       dispatchMovieDetail({ type: "HIDE" });
+  //       return;
+  //     }
+  //     throw new Error("Request failed");
+  //   } catch (e) {
+  //     console.log(e.message);
+  //   }
+  // };
 
   // Filter by genre
-  const filterHandler = (userFilter) => {
+  const filterHandler = useCallback((userFilter) => {
     if (moviesGenres.includes(userFilter)) {
-      setFilteredMovies(() =>
-        movies.filter((movie) => movie.genre.toLowerCase() === userFilter)
-      );
-    } else if (userFilter === "all") {
-      setFilteredMovies([...movies]);
-    }
-  };
-
-  // Filter by search term (title and actor)
-  const searchHandler = (searchTerm) => {
-    if (searchTerm.trim().length === 0) {
-      setFilteredMovies(movies);
-    } else {
-      setFilteredMovies(() =>
-        movies.filter(
-          (movie) =>
-            movie.title.toLowerCase().includes(searchTerm) ||
-            movie.actors.toLowerCase().includes(searchTerm)
+      setMovies(() =>
+        availableMovies.filter(
+          (movie) => movie.genre.toLowerCase() === userFilter
         )
       );
+    } else if (userFilter === "all") {
+      setMovies(availableMovies);
     }
-  };
+  }, []);
 
-  const showMovieDetailsHandler = (currentMovie) => {
+  // Filter by search term (title and actor)
+  const searchHandler = useCallback((searchTerm) => {
+    if (searchTerm.trim().length === 0) {
+      setMovies(availableMovies);
+    } else {
+      const filteredMovies = availableMovies.filter(
+        (movie) =>
+          movie.title.toLowerCase().includes(searchTerm) ||
+          movie.actors.toLowerCase().includes(searchTerm)
+      );
+      setMovies(filteredMovies);
+    }
+  }, []);
+
+  const showMovieDetailHandler = useCallback((currentMovie) => {
     dispatchMovieDetail({ type: "SHOW", movie: currentMovie });
-  };
-  const hideMovieDetailsHandler = () => {
+  }, []);
+  const hideMovieDetailHandler = () => {
     dispatchMovieDetail({ type: "HIDE" });
   };
 
@@ -116,15 +131,16 @@ const Movies = () => {
         </aside>
         <div className="col-md-9">
           <MoviesList
-            movies={filteredMovies}
-            onShowMovieDetail={showMovieDetailsHandler}
+            movies={movies}
+            loadingMovies={isLoadingMovies}
+            onShowMovieDetail={showMovieDetailHandler}
           />
         </div>
         {/* Details modal  */}
         {movieDetail.show && (
-          <MovieDetails
+          <MovieDetail
             movie={movieDetail.movie}
-            onCloseModal={hideMovieDetailsHandler}
+            onCloseModal={hideMovieDetailHandler}
           />
         )}
       </section>

@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
+import { memo } from "react";
 
 import { Link } from "react-router-dom";
 import "./moviesFilter.css";
 
 const MoviesFilter = (props) => {
-  const onSelectedFilter = (event) => {
+  const selectedFilterHandler = (event) => {
     const selectedFilter = event.target.value;
     props.onFilter(selectedFilter);
   };
@@ -19,7 +19,7 @@ const MoviesFilter = (props) => {
       <div className="mb-3">
         <select
           name="genres"
-          onChange={onSelectedFilter}
+          onChange={selectedFilterHandler}
           className="form-select"
         >
           <option value="all">All genres</option>
@@ -36,7 +36,7 @@ const MoviesFilter = (props) => {
         <input
           className="form-control"
           type="search"
-          placeholder="Search"
+          placeholder="Search by title or actor"
           aria-label="Search"
           onChange={searchHandler}
         />
@@ -51,4 +51,4 @@ const MoviesFilter = (props) => {
   );
 };
 
-export default MoviesFilter;
+export default memo(MoviesFilter);
