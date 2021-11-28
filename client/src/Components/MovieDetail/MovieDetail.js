@@ -14,16 +14,12 @@ function MovieDetail(props) {
   return (
     <Modal onClose={onCloseModal}>
       <div className="card detail">
-        <div className="row g-0">
+        <div className="row g-0 align-items-center">
           <div className="col-md-4">
-            <img
-              src={movie.imgUrl}
-              className="img-fluid rounded-start"
-              alt={movie.title}
-            />
+            <img src={movie.imageUrl} className="img-fluid" alt={movie.title} />
           </div>
           <div className="col-md-8">
-            <div className="card-body overflow-scroll">
+            <div className="card-body overflow-scroll pe-5">
               <h3 className="detail__title">{movie.title}</h3>
               <p className="detail__text">
                 <span>Genre </span>
@@ -34,12 +30,12 @@ function MovieDetail(props) {
                 {movie.releaseDate}
               </p>
               <p className="detail__text">
-                <span>Synopsis </span>
-                {movie.description}
-              </p>
-              <p className="detail__text">
                 <span>Actors </span>
                 {movie.actors}
+              </p>
+              <p className="detail__text">
+                <span>Synopsis </span>
+                {movie.synopsis}
               </p>
             </div>
           </div>

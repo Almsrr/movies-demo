@@ -11,7 +11,7 @@ const Movie = (props) => {
     <article className="movie" onClick={showMovieDetailHandler}>
       <img
         className="movie__img"
-        src={movie.imgUrl}
+        src={movie.imageUrl}
         alt={`${movie.title}-cover`}
       />
       <h3 className="movie__title">{movie.title}</h3>

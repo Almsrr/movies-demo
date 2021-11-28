@@ -4,6 +4,7 @@ import React, {
   useReducer,
   Fragment,
   useCallback,
+  useMemo,
 } from "react";
 
 import MoviesList from "../../Components/MoviesList/MoviesList";
@@ -12,7 +13,7 @@ import MovieDetail from "../../Components/MovieDetail/MovieDetail";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
-const moviesGenres = [
+export const moviesGenres = [
   { value: "all", name: "All genres" },
   { value: "action", name: "Action" },
   { value: "adventure", name: "Adventure" },
@@ -37,8 +38,6 @@ const movieDetailReducer = (state, action) => {
   }
 };
 
-const availableMovies = [];
-
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoadingMovies, setIsLoadingMovies] = useState(true);
@@ -46,6 +45,8 @@ const Movies = () => {
     show: false,
     movie: null,
   });
+
+  const availableMovies = useMemo(() => [], []);
 
   useEffect(() => {
     // Load movies
@@ -70,7 +71,7 @@ const Movies = () => {
       setMovies(loadedMovies);
       setIsLoadingMovies(false);
     });
-  }, []);
+  }, [availableMovies]);
   // DELELE Movie
   // const deleteMovieHandler = async (id) => {
   //   try {
@@ -91,33 +92,39 @@ const Movies = () => {
   // };
 
   // Filter by genre
-  const filterHandler = useCallback((userFilter) => {
-    const genres = moviesGenres.map((genre) => genre.value);
+  const filterHandler = useCallback(
+    (userFilter) => {
+      const genres = moviesGenres.map((genre) => genre.value);
 
-    if (genres.includes(userFilter) && userFilter === "all") {
-      setMovies(availableMovies);
-    } else if (genres.includes(userFilter)) {
-      setMovies(() =>
-        availableMovies.filter(
-          (movie) => movie.genre.toLowerCase() === userFilter
-        )
-      );
-    }
-  }, []);
+      if (genres.includes(userFilter) && userFilter === "all") {
+        setMovies(availableMovies);
+      } else if (genres.includes(userFilter)) {
+        setMovies(() =>
+          availableMovies.filter(
+            (movie) => movie.genre.toLowerCase() === userFilter
+          )
+        );
+      }
+    },
+    [availableMovies]
+  );
 
   // Filter by search term (title and actor)
-  const searchHandler = useCallback((searchTerm) => {
-    if (searchTerm.trim().length === 0) {
-      setMovies(availableMovies);
-    } else {
-      const filteredMovies = availableMovies.filter(
-        (movie) =>
-          movie.title.toLowerCase().includes(searchTerm) ||
-          movie.actors.toLowerCase().includes(searchTerm)
-      );
-      setMovies(filteredMovies);
-    }
-  }, []);
+  const searchHandler = useCallback(
+    (searchTerm) => {
+      if (searchTerm.trim().length === 0) {
+        setMovies(availableMovies);
+      } else {
+        const filteredMovies = availableMovies.filter(
+          (movie) =>
+            movie.title.toLowerCase().includes(searchTerm) ||
+            movie.actors.toLowerCase().includes(searchTerm)
+        );
+        setMovies(filteredMovies);
+      }
+    },
+    [availableMovies]
+  );
 
   const showMovieDetailHandler = useCallback((currentMovie) => {
     dispatchMovieDetail({ type: "SHOW", movie: currentMovie });
@@ -127,7 +134,7 @@ const Movies = () => {
   };
 
   return (
-    <Fragment>
+    <div class="container page-container">
       <section className="row">
         <aside className="col-md-3">
           <MoviesFilter
@@ -151,7 +158,7 @@ const Movies = () => {
           />
         )}
       </section>
-    </Fragment>
+    </div>
   );
 };
 
