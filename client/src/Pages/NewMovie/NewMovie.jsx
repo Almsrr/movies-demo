@@ -1,6 +1,8 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import NewMovieForm from "../../Components/NewMovieForm/NewMovieForm";
 import "./newMovie.css";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 function NewMovie() {
   const history = useHistory();
@@ -8,19 +10,12 @@ function NewMovie() {
   // Save Movie
   const newMovieHandler = async (movie) => {
     try {
-      const response = await fetch("/api/movies?api-key=123", {
-        method: "POST",
-        body: JSON.stringify(movie),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      if (response.ok) {
-        history.push("/");
-        return;
-      }
-      throw new Error("Request failed");
+      await addDoc(collection(db, "movies"), movie);
+
+      alert("Movie save successfully");
+      history.push("/");
     } catch (e) {
+      alert("Something went wrong");
       console.log(e.message);
     }
   };
@@ -30,21 +25,32 @@ function NewMovie() {
   };
 
   return (
-    <section className="new-movie">
-      <div className="row pb-4">
-        <div className="col-12">
-          <h1 className="fw-bold">New Movie</h1>
+    <div className="bg-img">
+      <div className="bg-img-2">
+        <div className="container page-container">
+          <section className="new-movie">
+            <div className="row pb-3">
+              <div className="col-12">
+                <Link to="/" className="fw-bold">
+                  Back
+                </Link>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-5">
+                <div className="form-col">
+                  <h1 className="fw-bold mb-4">New Movie</h1>
+                  <NewMovieForm
+                    onNewMovie={newMovieHandler}
+                    onCancel={cancelSubmissionHandler}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-      <div className="row">
-        <div className="col-md-5">
-          <NewMovieForm
-            onNewMovie={newMovieHandler}
-            onCancel={cancelSubmissionHandler}
-          />
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }
 

@@ -22,6 +22,11 @@ function NewMovieForm(props) {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    if (newMovieGenre.current.value === "all") {
+      alert("Select a movie genre please");
+      return;
+    }
+
     const newMovie = {
       title: capitalizeFirstLetters(newMovieTitle.current.value),
       genre: capitalizeFirstLetter(newMovieGenre.current.value),
@@ -35,51 +40,53 @@ function NewMovieForm(props) {
     props.onNewMovie(newMovie);
 
     // Empty fields;
-    newMovieTitle.current.value = "";
-    newMovieGenre.current.value = "";
-    newMovieReleaseDate.current.value = "";
-    newMovieImgUrl.current.value = "";
-    newMovieSynopsis.current.value = "";
-    newMovieActors.current.value = "";
+    // newMovieTitle.current.value = "";
+    // newMovieGenre.current.value = "";
+    // newMovieReleaseDate.current.value = "";
+    // newMovieImgUrl.current.value = "";
+    // newMovieSynopsis.current.value = "";
+    // newMovieActors.current.value = "";
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className="new-movie-form">
       <div className="pb-4">
         <label htmlFor="title" className="form-label">
           Title
         </label>
         <input
           type="text"
-          name="title"
+          id="title"
           ref={newMovieTitle}
           className="form-control"
+          required
         />
       </div>
       <div className="pb-4">
         <label htmlFor="genre" className="form-label">
           Genre
         </label>
-        <select name="genre" ref={newMovieGenre} className="form-select">
-          <option value="">Select one</option>
+        <select id="genre" ref={newMovieGenre} className="form-select" required>
+          <option value="all">Select one</option>
           <option value="action">Action</option>
           <option value="adventure">Adventure</option>
           <option value="comedy">Comedy</option>
           <option value="fantasy">Fantasy</option>
           <option value="horror">Horror</option>
           <option value="infantile">Infantile</option>
-          <option value="kids">Romance</option>
+          <option value="romance">Romance</option>
         </select>
       </div>
       <div className="pb-4">
         <label htmlFor="release-date" className="form-label">
-          Release Date
+          Release date
         </label>
         <input
           type="date"
-          name="release-date"
+          id="release-date"
           ref={newMovieReleaseDate}
           className="form-control"
+          required
         />
       </div>
       <div className="pb-4">
@@ -87,10 +94,14 @@ function NewMovieForm(props) {
           Image URL
         </label>
         <input
-          type="text"
-          name="image-url"
+          type="url"
+          id="image-url"
           ref={newMovieImgUrl}
           className="form-control"
+          pattern="http.*"
+          placeholder="https://my-movie-image.com"
+          minLength="20"
+          required
         />
       </div>
       <div className="pb-4">
@@ -98,9 +109,10 @@ function NewMovieForm(props) {
           Synopsis
         </label>
         <textarea
-          name="synopsis"
+          id="synopsis"
           ref={newMovieSynopsis}
           className="form-control"
+          rows="6"
         ></textarea>
       </div>
       <div className="pb-4">
@@ -108,16 +120,18 @@ function NewMovieForm(props) {
           Actors
         </label>
         <textarea
-          name="actors"
+          id="actors"
           ref={newMovieActors}
           placeholder="Alam Sierra, Marcelo Erizo"
           className="form-control"
+          rows="6"
+          required
         ></textarea>
       </div>
       <div className="text-end mt-4">
         <button
           type="button"
-          className="btn btn-outline-secondary fw-bold me-4"
+          className="btn btn-outline-dark me-4"
           onClick={() => props.onCancel()}
         >
           Cancel
