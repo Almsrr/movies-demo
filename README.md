@@ -1,7 +1,5 @@
 # Movies Manager
 
-> This is a movie manager app in which you can do three of the four basic operations: create, delete and read movies from a database.
-
 ## Table of Contents
 
 - [Technologies Used](#technologies-used)
@@ -12,53 +10,33 @@
 ## Technologies Used
 
 - React - version 17.0.2
-- Express - version 4.17.1
-- Postgresql - version 9.5
+- Firebase 9
 
 ## Features
 
 - List movies
 - Add movies
-- Delete movies
 - Show movie details
 - Filter movies by genre
 - Search movies by title and actors
-- List actors
 
 ## Screenshots
 
-**Movies**
+![pic1](./pics/v3-1.png)
 
-![pic3](./pics/pic3.png)
+![pic2](./pics/v3-2.png)
 
-![pic9](./pics/pic9.png)
+![pic3](./pics/v3-3.png)
 
-![pic10](./pics/pic10.png)
+![pic4](./pics/v3-4.png)
 
-![pic6](./pics/pic6.png)
-
-**Actors**
-
-![pic7](./pics/pic7.png)
-
-![pic8](./pics/pic8.png)
-
-## Installation
+## Setup
 
 **Client**
 
 ```
 cd client
 npm install
-```
-
-**Server**
+npm start
 
 ```
-cd server
-npm install
-```
-
-**Database**
-
-In db folder you can find the scripts. Open with your db manager or copy and paste it.
