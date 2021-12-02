@@ -1,5 +1,6 @@
 .detail {
   overflow: hidden;
+  border: none !important;
 }
 
 .detail__title {
@@ -17,13 +18,19 @@
   margin-bottom: 1rem;
 }
 
-.detail__remove-link {
+.detail__actions {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.detail__actions > .remove-btn {
   color: blue;
   font-size: 0.875rem;
   border: none;
   background: none;
-  text-decoration: underline;
-  cursor: pointer;
   display: block;
   margin: 0 auto;
+  padding: 0.5rem 0.5rem 1rem;
 }

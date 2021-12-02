@@ -25,11 +25,11 @@ function MovieDetail(props) {
   return (
     <Modal onClose={onCloseModal}>
       <div className="card detail">
-        <div className="row g-0 align-items-center">
+        <div className="row g-0">
           <div className="col-md-4">
             <img src={movie.imageUrl} className="img-fluid" alt={movie.title} />
           </div>
-          <div className="col-md-8">
+          <div className="col-md-8 position-relative">
             <div className="card-body overflow-scroll pe-5">
               <h3 className="detail__title">{movie.title}</h3>
               <p className="detail__text">
@@ -48,10 +48,12 @@ function MovieDetail(props) {
                 <span>Synopsis </span>
                 {movie.synopsis}
               </p>
+            </div>
+            <div className="detail__actions">
               <button
                 type="button"
                 title="remove movie"
-                className="detail__remove-link"
+                className="remove-btn"
                 onClick={confirmRemove}
               >
                 Remove this movie?
