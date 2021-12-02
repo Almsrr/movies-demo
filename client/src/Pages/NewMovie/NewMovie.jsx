@@ -29,17 +29,17 @@ function NewMovie() {
       <div className="bg-img-2">
         <div className="container page-container">
           <section className="new-movie">
-            <div className="row pb-3">
-              <div className="col-12">
+            <div className="row pb-3 justify-content-center">
+              <div className="col-md-6">
                 <Link to="/" className="fw-bold">
                   Back
                 </Link>
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-5">
+            <div className="row justify-content-center">
+              <div className="col-md-6">
                 <div className="form-col">
-                  <h1 className="fw-bold mb-4">New Movie</h1>
+                  <h1 className="fw-bold mb-4 text-center">New Movie</h1>
                   <NewMovieForm
                     onNewMovie={newMovieHandler}
                     onCancel={cancelSubmissionHandler}

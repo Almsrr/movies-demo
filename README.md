@@ -1,4 +1,4 @@
-# Movies Manager
+# Movies Manager Demo
 
 ## Table of Contents
 
@@ -19,6 +19,7 @@
 - Show movie details
 - Filter movies by genre
 - Search movies by title and actors
+- Delete movies
 
 ## Screenshots
 
@@ -26,17 +27,15 @@
 
 ![pic2](./pics/v3-2.png)
 
-![pic3](./pics/v3-3.png)
-
-![pic4](./pics/v3-4.png)
-
 ## Setup
 
 **Client**
 
 ```
 cd client
+
 npm install
+
 npm start
 
 ```
