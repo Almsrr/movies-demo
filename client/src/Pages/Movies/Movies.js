@@ -2,7 +2,6 @@ import React, {
   useState,
   useEffect,
   useReducer,
-  Fragment,
   useCallback,
   useMemo,
 } from "react";
@@ -10,7 +9,7 @@ import React, {
 import MoviesList from "../../Components/MoviesList/MoviesList";
 import MoviesFilter from "../../Components/MoviesFilter/MoviesFilter";
 import MovieDetail from "../../Components/MovieDetail/MovieDetail";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 export const moviesGenres = [
@@ -72,24 +71,22 @@ const Movies = () => {
       setIsLoadingMovies(false);
     });
   }, [availableMovies]);
-  // DELELE Movie
-  // const deleteMovieHandler = async (id) => {
-  //   try {
-  //     const response = await fetch(`/api/movies/${id}?api-key=123`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-type": "application/json; charset=UTF-8",
-  //       },
-  //     });
-  //     if (response.ok) {
-  //       dispatchMovieDetail({ type: "HIDE" });
-  //       return;
-  //     }
-  //     throw new Error("Request failed");
-  //   } catch (e) {
-  //     console.log(e.message);
-  //   }
-  // };
+
+  // Remove Movie
+  const removeMovieHandler = async (id) => {
+    try {
+      await deleteDoc(doc(db, "movies", id));
+
+      setMovies((prevMovies) => {
+        return prevMovies.filter((movie) => movie.id !== id);
+      });
+      dispatchMovieDetail({ type: "HIDE" });
+      alert("REMOVED!");
+    } catch (e) {
+      alert("Something went wrong");
+      console.log(e.message);
+    }
+  };
 
   // Filter by genre
   const filterHandler = useCallback(
@@ -134,7 +131,7 @@ const Movies = () => {
   };
 
   return (
-    <div class="container page-container">
+    <div className="container page-container">
       <section className="row">
         <aside className="col-md-3">
           <MoviesFilter
@@ -155,6 +152,7 @@ const Movies = () => {
           <MovieDetail
             movie={movieDetail.movie}
             onCloseModal={hideMovieDetailHandler}
+            onRemoveMovie={removeMovieHandler}
           />
         )}
       </section>

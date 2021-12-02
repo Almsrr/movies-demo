@@ -12,7 +12,7 @@ function NewMovie() {
     try {
       await addDoc(collection(db, "movies"), movie);
 
-      alert("Movie save successfully");
+      alert("Movie saved successfully");
       history.push("/");
     } catch (e) {
       alert("Something went wrong");

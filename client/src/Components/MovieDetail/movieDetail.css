@@ -16,3 +16,14 @@
 .detail__text {
   margin-bottom: 1rem;
 }
+
+.detail__remove-link {
+  color: blue;
+  font-size: 0.875rem;
+  border: none;
+  background: none;
+  text-decoration: underline;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}

@@ -9,7 +9,18 @@ export const formatDate = (stringDate) => {
 };
 
 function MovieDetail(props) {
-  const { onCloseModal, movie } = props;
+  const { onCloseModal, movie, onRemoveMovie } = props;
+
+  const confirmRemove = () => {
+    let isConfirmed = false;
+    isConfirmed = window.confirm(
+      "Are you sure do you want to remove this movie?"
+    );
+
+    if (isConfirmed) {
+      onRemoveMovie(movie.id);
+    }
+  };
 
   return (
     <Modal onClose={onCloseModal}>
@@ -37,6 +48,14 @@ function MovieDetail(props) {
                 <span>Synopsis </span>
                 {movie.synopsis}
               </p>
+              <button
+                type="button"
+                title="remove movie"
+                className="detail__remove-link"
+                onClick={confirmRemove}
+              >
+                Remove this movie?
+              </button>
             </div>
           </div>
         </div>
