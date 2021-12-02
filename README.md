@@ -23,9 +23,9 @@
 
 ## Screenshots
 
-![pic1](./pics/v3-1.png)
+![pic1](./pics/v3-01.png)
 
-![pic2](./pics/v3-2.png)
+![pic2](./pics/v3-02.png)
 
 ## Setup
 
